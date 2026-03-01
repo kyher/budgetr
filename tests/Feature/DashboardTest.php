@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Budget;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -23,5 +24,19 @@ class DashboardTest extends TestCase
 
         $response = $this->get(route('dashboard'));
         $response->assertOk();
+    }
+
+    public function test_budgets_show_on_dashboard()
+    {
+        $user = User::factory()->create();
+        $this->actingAs($user);
+
+        $budgets = Budget::factory()->count(3)->create(['user_id' => $user->id]);
+
+        $response = $this->get(route('dashboard'));
+        $response->assertOk();
+        $response->assertSee($budgets[0]->name);
+        $response->assertSee($budgets[1]->name);
+        $response->assertSee($budgets[2]->name);
     }
 }
