@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { Head } from '@inertiajs/vue3';
+import { Head, Link } from '@inertiajs/vue3';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { dashboard } from '@/routes';
 import type { BreadcrumbItem } from '@/types';
 import type { Budget } from '@/types/Budget';
+import { show } from '@/actions/App/Http/Controllers/Budgets/BudgetController';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -25,7 +26,11 @@ defineProps<{
         >
             <ul>
                 <li v-for="budget in budgets" :key="budget.id">
-                    {{ budget.name }}
+                    <Link
+                        :href="show(budget)"
+                        class="rounded-sm bg-blue-500 px-5 py-1.5 text-sm leading-normal text-white hover:bg-blue-600"
+                        >{{ budget.name }}</Link
+                    >
                 </li>
             </ul>
         </div>
