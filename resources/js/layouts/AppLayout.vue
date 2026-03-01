@@ -12,7 +12,10 @@ withDefaults(defineProps<Props>(), {
 </script>
 
 <template>
-    <AppLayout :breadcrumbs="breadcrumbs">
+    <AppLayout
+        :breadcrumbs="breadcrumbs"
+        class="bg-gradient-to-bl from-[#ffe4e6] to-[#ccfbf1]"
+    >
         <slot />
     </AppLayout>
 </template>

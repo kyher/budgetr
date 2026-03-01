@@ -8,7 +8,11 @@ defineProps<{
 </script>
 
 <template>
-    <AuthLayout :title="title" :description="description">
+    <AuthLayout
+        :title="title"
+        :description="description"
+        class="bg-gradient-to-bl from-[#ffe4e6] to-[#ccfbf1]"
+    >
         <slot />
     </AuthLayout>
 </template>
