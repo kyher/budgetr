@@ -3,9 +3,9 @@ import { Form, Head, Link } from '@inertiajs/vue3';
 import { show } from '@/actions/App/Http/Controllers/Budgets/BudgetController';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { dashboard } from '@/routes';
+import { store } from '@/routes/budgets';
 import type { BreadcrumbItem } from '@/types';
 import type { Budget } from '@/types/Budget';
-import { store } from '@/routes/budgets';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
