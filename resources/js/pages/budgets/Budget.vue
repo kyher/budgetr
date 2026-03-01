@@ -9,6 +9,7 @@ import AppLayout from '@/layouts/AppLayout.vue';
 import { getTotal } from '@/lib/utils';
 import { dashboard } from '@/routes';
 import { show } from '@/routes/budgets';
+import { toggleCompletion } from '@/routes/budgets/items';
 import type { BreadcrumbItem } from '@/types';
 import type { Budget } from '@/types/Budget';
 
@@ -66,9 +67,29 @@ const remaining = computed(() => {
                             {{ Number(item.amount).toFixed(2) }}
                         </td>
                         <td class="px-4 py-2 text-center">
-                            {{ item.completed ? '✓' : '✗' }}
+                            {{ item.completed ? '✅' : '❌' }}
                         </td>
-                        <td class="px-4 py-2 text-center">
+                        <td class="flex gap-2 px-4 py-2 text-center">
+                            <Form
+                                method="patch"
+                                :action="
+                                    toggleCompletion({
+                                        budget,
+                                        item,
+                                    })
+                                "
+                            >
+                                <button
+                                    type="submit"
+                                    class="cursor-pointer rounded bg-orange-700 p-1 text-xs text-white"
+                                >
+                                    {{
+                                        item.completed
+                                            ? 'Mark Incomplete'
+                                            : 'Mark Complete'
+                                    }}
+                                </button>
+                            </Form>
                             <Form
                                 method="delete"
                                 :action="
@@ -80,9 +101,9 @@ const remaining = computed(() => {
                             >
                                 <button
                                     type="submit"
-                                    class="cursor-pointer rounded bg-red-500 p-1 text-white"
+                                    class="cursor-pointer rounded bg-red-500 p-1 text-xs text-white"
                                 >
-                                    Remove
+                                    Remove item
                                 </button>
                             </Form>
                         </td>

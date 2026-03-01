@@ -101,4 +101,36 @@ class BudgetsTest extends TestCase
             'id' => $item->id,
         ]);
     }
+
+    public function test_budget_owner_can_toggle_item_completion()
+    {
+        $user = User::factory()->create();
+        $budget = Budget::factory()->create(['user_id' => $user->id]);
+        $item = Item::factory()->create(['budget_id' => $budget->id, 'completed' => false]);
+
+        $this->actingAs($user);
+        $response = $this->patch(route('budgets.items.toggle-completion', ['budget' => $budget->getKey(), 'item' => $item->getKey()]));
+
+        $response->assertRedirect(route('budgets.show', ['budget' => $budget->getKey()]));
+        $this->assertDatabaseHas('items', [
+            'id' => $item->id,
+            'completed' => true,
+        ]);
+    }
+
+    public function test_different_user_cannot_toggle_item_completion()
+    {
+        $user = User::factory()->create();
+        $budget = Budget::factory()->create();
+        $item = Item::factory()->create(['budget_id' => $budget->id, 'completed' => false]);
+
+        $this->actingAs($user);
+        $response = $this->patch(route('budgets.items.toggle-completion', ['budget' => $budget->getKey(), 'item' => $item->getKey()]));
+
+        $response->assertForbidden();
+        $this->assertDatabaseHas('items', [
+            'id' => $item->id,
+            'completed' => false,
+        ]);
+    }
 }
