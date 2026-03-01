@@ -28,4 +28,13 @@ class BudgetController extends Controller
 
         return redirect()->route('budgets.show', $budget);
     }
+
+    public function remove(Budget $budget)
+    {
+        if (Auth::id() != $budget->user_id) {
+            abort(403);
+        }
+        $budget->delete();
+        return redirect()->route('dashboard');
+    }
 }
