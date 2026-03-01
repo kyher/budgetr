@@ -1,12 +1,12 @@
 <script setup lang="ts">
+import { Head } from '@inertiajs/vue3';
+import { computed } from 'vue';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { getTotal } from '@/lib/utils';
 import { dashboard } from '@/routes';
 import { show } from '@/routes/budgets';
-import { BreadcrumbItem } from '@/types';
-import { Budget } from '@/types/Budget';
-import { Head } from '@inertiajs/vue3';
-import { computed } from 'vue';
+import type { BreadcrumbItem } from '@/types';
+import type { Budget } from '@/types/Budget';
 
 const { budget } = defineProps<{
     budget: Budget;
