@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import { Form, Head } from '@inertiajs/vue3';
 import { computed } from 'vue';
-import { addItem } from '@/actions/App/Http/Controllers/Budgets/BudgetController';
+import {
+    addItem,
+    removeItem,
+} from '@/actions/App/Http/Controllers/Budgets/BudgetController';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { getTotal } from '@/lib/utils';
 import { dashboard } from '@/routes';
@@ -53,6 +56,7 @@ const remaining = computed(() => {
                         <th class="px-4 py-2 text-center">Name</th>
                         <th class="px-4 py-2 text-center">Amount</th>
                         <th class="px-4 py-2 text-center">Completed</th>
+                        <th class="px-4 py-2 text-center">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -63,6 +67,24 @@ const remaining = computed(() => {
                         </td>
                         <td class="px-4 py-2 text-center">
                             {{ item.completed ? '✓' : '✗' }}
+                        </td>
+                        <td class="px-4 py-2 text-center">
+                            <Form
+                                method="delete"
+                                :action="
+                                    removeItem({
+                                        budget,
+                                        item,
+                                    })
+                                "
+                            >
+                                <button
+                                    type="submit"
+                                    class="cursor-pointer rounded bg-red-500 p-1 text-white"
+                                >
+                                    Remove
+                                </button>
+                            </Form>
                         </td>
                     </tr>
                 </tbody>

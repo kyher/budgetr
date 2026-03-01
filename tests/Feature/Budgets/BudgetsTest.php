@@ -3,6 +3,7 @@
 namespace Tests\Feature\Budgets;
 
 use App\Models\Budget;
+use App\Models\Item;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -69,5 +70,35 @@ class BudgetsTest extends TestCase
         ]);
 
         $response->assertForbidden();
+    }
+
+    public function test_budget_owner_can_remove_items()
+    {
+        $user = User::factory()->create();
+        $budget = Budget::factory()->create(['user_id' => $user->id]);
+        $item = Item::factory()->create(['budget_id' => $budget->id]);
+
+        $this->actingAs($user);
+        $response = $this->delete(route('budgets.items.remove', ['budget' => $budget->getKey(), 'item' => $item->getKey()]));
+
+        $response->assertRedirect(route('budgets.show', ['budget' => $budget->getKey()]));
+        $this->assertDatabaseMissing('items', [
+            'id' => $item->id,
+        ]);
+    }
+
+    public function test_different_user_cannot_remove_items()
+    {
+        $user = User::factory()->create();
+        $budget = Budget::factory()->create();
+        $item = Item::factory()->create(['budget_id' => $budget->id]);
+
+        $this->actingAs($user);
+        $response = $this->delete(route('budgets.items.remove', ['budget' => $budget->getKey(), 'item' => $item->getKey()]));
+
+        $response->assertForbidden();
+        $this->assertDatabaseHas('items', [
+            'id' => $item->id,
+        ]);
     }
 }

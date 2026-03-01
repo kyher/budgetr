@@ -13,6 +13,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', DashboardController::class)->name('dashboard');
     Route::get('budgets/{budget}', [BudgetController::class, 'show'])->name('budgets.show');
     Route::post('budgets/{budget}/items', [BudgetController::class, 'addItem'])->name('budgets.items.add');
+    Route::delete('budgets/{budget}/items/{item}', [BudgetController::class, 'removeItem'])->name('budgets.items.remove');
 });
 
 require __DIR__ . '/settings.php';
