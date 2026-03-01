@@ -15,6 +15,7 @@ class ItemFactory extends Factory
         return [
             'name' => fake()->word(),
             'amount' => fake()->randomFloat(2, 1, 1000),
+            'completed' => fake()->boolean(),
             'budget_id' => Budget::factory(),
         ];
     }

@@ -18,6 +18,7 @@ class ItemResource extends JsonResource
             'id' => $this->getKey(),
             'name' => $this->name,
             'amount' => $this->amount,
+            'completed' => $this->completed,
         ];
     }
 }
