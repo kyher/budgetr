@@ -1,10 +1,6 @@
 <script setup lang="ts">
 import { Form, Head } from '@inertiajs/vue3';
 import { computed } from 'vue';
-import {
-    addItem,
-    removeItem,
-} from '@/actions/App/Http/Controllers/Budgets/BudgetController';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { getTotal } from '@/lib/utils';
 import { dashboard } from '@/routes';
@@ -12,6 +8,11 @@ import { show } from '@/routes/budgets';
 import { toggleCompletion } from '@/routes/budgets/items';
 import type { BreadcrumbItem } from '@/types';
 import type { Budget } from '@/types/Budget';
+import {
+    addItem,
+    removeItem,
+    toggleItemCompletion,
+} from '@/actions/App/Http/Controllers/BudgetItems/BudgetItemController';
 
 const { budget } = defineProps<{
     budget: Budget;
@@ -73,7 +74,7 @@ const remaining = computed(() => {
                             <Form
                                 method="patch"
                                 :action="
-                                    toggleCompletion({
+                                    toggleItemCompletion({
                                         budget,
                                         item,
                                     })
