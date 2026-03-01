@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class BudgetResource extends JsonResource
+class ItemResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,7 +17,7 @@ class BudgetResource extends JsonResource
         return [
             'id' => $this->getKey(),
             'name' => $this->name,
-            'items' => ItemResource::collection($this->items),
+            'amount' => $this->amount,
         ];
     }
 }
