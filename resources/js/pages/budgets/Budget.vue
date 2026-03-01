@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { Head } from '@inertiajs/vue3';
+import { Form, Head } from '@inertiajs/vue3';
 import { computed } from 'vue';
+import { addItem } from '@/actions/App/Http/Controllers/Budgets/BudgetController';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { getTotal } from '@/lib/utils';
 import { dashboard } from '@/routes';
@@ -57,13 +58,41 @@ const remaining = computed(() => {
                 <tbody>
                     <tr v-for="item in budget.items" :key="item.id">
                         <td class="px-4 py-2 text-center">{{ item.name }}</td>
-                        <td class="px-4 py-2 text-center">{{ item.amount }}</td>
+                        <td class="px-4 py-2 text-center">
+                            {{ Number(item.amount).toFixed(2) }}
+                        </td>
                         <td class="px-4 py-2 text-center">
                             {{ item.completed ? '✓' : '✗' }}
                         </td>
                     </tr>
                 </tbody>
             </table>
+            <Form
+                :action="addItem(budget)"
+                method="post"
+                class="mt-4 flex flex-col gap-4"
+                reset-on-success
+            >
+                <input
+                    type="text"
+                    name="name"
+                    placeholder="Item Name"
+                    class="rounded border border-gray-300 bg-white p-2"
+                />
+                <input
+                    type="number"
+                    step="0.01"
+                    name="amount"
+                    placeholder="Item Amount"
+                    class="rounded border border-gray-300 bg-white p-2"
+                />
+                <button
+                    type="submit"
+                    class="cursor-pointer rounded bg-blue-500 p-2 text-white"
+                >
+                    Add Item
+                </button>
+            </Form>
             <div class="mt-4">
                 <table
                     class="min-w-full divide-y divide-gray-200 bg-purple-300"

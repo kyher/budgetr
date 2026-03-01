@@ -37,4 +37,37 @@ class BudgetsTest extends TestCase
         $response = $this->get(route('budgets.show', ['budget' => $budget->getKey()]));
         $response->assertForbidden();
     }
+
+    public function test_budget_owner_can_add_items()
+    {
+        $user = User::factory()->create();
+        $budget = Budget::factory()->create(['user_id' => $user->id]);
+
+        $this->actingAs($user);
+        $response = $this->post(route('budgets.items.add', ['budget' => $budget->getKey()]), [
+            'name' => 'New Item',
+            'amount' => 100,
+        ]);
+
+        $response->assertRedirect(route('budgets.show', ['budget' => $budget->getKey()]));
+        $this->assertDatabaseHas('items', [
+            'name' => 'New Item',
+            'amount' => 100,
+            'budget_id' => $budget->getKey(),
+        ]);
+    }
+
+    public function test_different_user_cannot_add_items()
+    {
+        $user = User::factory()->create();
+        $budget = Budget::factory()->create();
+
+        $this->actingAs($user);
+        $response = $this->post(route('budgets.items.add', ['budget' => $budget->getKey()]), [
+            'name' => 'New Item',
+            'amount' => 100,
+        ]);
+
+        $response->assertForbidden();
+    }
 }
