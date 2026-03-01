@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('password'),
         ]);
 
-        Budget::factory()->create([
+        Budget::factory()->count(1)->create([
             'name' => 'Test Budget',
             'user_id' => $user->getKey()
         ]);
