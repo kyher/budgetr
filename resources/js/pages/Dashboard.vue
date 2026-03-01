@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { Head, Link } from '@inertiajs/vue3';
+import { Form, Head, Link } from '@inertiajs/vue3';
 import { show } from '@/actions/App/Http/Controllers/Budgets/BudgetController';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { dashboard } from '@/routes';
+import { store } from '@/routes/budgets';
 import type { BreadcrumbItem } from '@/types';
 import type { Budget } from '@/types/Budget';
 
@@ -26,13 +27,29 @@ defineProps<{
         >
             <ul>
                 <li v-for="budget in budgets" :key="budget.id">
-                    <Link
-                        :href="show(budget)"
-                        class="rounded-sm bg-blue-500 px-5 py-1.5 text-sm leading-normal text-white hover:bg-blue-600"
-                        >{{ budget.name }}</Link
-                    >
+                    <Link :href="show(budget)" class="hover:underline">{{
+                        budget.name
+                    }}</Link>
                 </li>
             </ul>
+            <Form
+                :action="store()"
+                method="post"
+                class="mt-4 flex items-center gap-2"
+            >
+                <input
+                    type="text"
+                    name="name"
+                    placeholder="Budget Name"
+                    class="flex-1 rounded-md border border-gray-300 bg-white p-2"
+                />
+                <button
+                    type="submit"
+                    class="rounded-md bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
+                >
+                    Create Budget
+                </button>
+            </Form>
         </div>
     </AppLayout>
 </template>

@@ -133,4 +133,20 @@ class BudgetsTest extends TestCase
             'completed' => false,
         ]);
     }
+
+    public function test_a_user_can_add_a_budget()
+    {
+        $user = User::factory()->create();
+
+        $this->actingAs($user);
+        $response = $this->post(route('budgets.store'), [
+            'name' => 'New Budget',
+        ]);
+
+        $response->assertRedirect(route('budgets.show', ['budget' => 1]));
+        $this->assertDatabaseHas('budgets', [
+            'name' => 'New Budget',
+            'user_id' => $user->id,
+        ]);
+    }
 }

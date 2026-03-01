@@ -4,12 +4,12 @@ import { computed } from 'vue';
 import {
     addItem,
     removeItem,
-} from '@/actions/App/Http/Controllers/Budgets/BudgetController';
+    toggleItemCompletion,
+} from '@/actions/App/Http/Controllers/BudgetItems/BudgetItemController';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { getTotal } from '@/lib/utils';
 import { dashboard } from '@/routes';
 import { show } from '@/routes/budgets';
-import { toggleCompletion } from '@/routes/budgets/items';
 import type { BreadcrumbItem } from '@/types';
 import type { Budget } from '@/types/Budget';
 
@@ -73,7 +73,7 @@ const remaining = computed(() => {
                             <Form
                                 method="patch"
                                 :action="
-                                    toggleCompletion({
+                                    toggleItemCompletion({
                                         budget,
                                         item,
                                     })
