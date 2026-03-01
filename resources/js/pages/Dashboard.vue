@@ -3,7 +3,7 @@ import { Form, Head, Link } from '@inertiajs/vue3';
 import { show } from '@/actions/App/Http/Controllers/Budgets/BudgetController';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { dashboard } from '@/routes';
-import { store } from '@/routes/budgets';
+import { remove, store } from '@/routes/budgets';
 import type { BreadcrumbItem } from '@/types';
 import type { Budget } from '@/types/Budget';
 
@@ -26,10 +26,22 @@ defineProps<{
             class="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4"
         >
             <ul>
-                <li v-for="budget in budgets" :key="budget.id">
+                <li
+                    v-for="budget in budgets"
+                    :key="budget.id"
+                    class="flex justify-between"
+                >
                     <Link :href="show(budget)" class="hover:underline">{{
                         budget.name
                     }}</Link>
+                    <Form method="delete" :action="remove(budget)">
+                        <button
+                            type="submit"
+                            class="cursor-pointer rounded bg-red-500 p-1 text-xs text-white"
+                        >
+                            Remove Budget
+                        </button>
+                    </Form>
                 </li>
             </ul>
             <Form

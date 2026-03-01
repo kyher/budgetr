@@ -149,4 +149,29 @@ class BudgetsTest extends TestCase
             'user_id' => $user->id,
         ]);
     }
+
+    public function test_a_user_can_remove_a_budget()
+    {
+        $user = User::factory()->create();
+        $budget = Budget::factory()->create(['user_id' => $user->id]);
+
+        $this->actingAs($user);
+        $response = $this->delete(route('budgets.remove', ['budget' => $budget->getKey()]));
+
+        $response->assertRedirect(route('dashboard'));
+        $this->assertDatabaseMissing('budgets', [
+            'id' => $budget->id,
+        ]);
+    }
+
+    public function test_a_different_user_cannot_remove_a_budget()
+    {
+        $user = User::factory()->create();
+        $budget = Budget::factory()->create();
+
+        $this->actingAs($user);
+        $response = $this->delete(route('budgets.remove', ['budget' => $budget->getKey()]));
+
+        $response->assertForbidden();
+    }
 }
