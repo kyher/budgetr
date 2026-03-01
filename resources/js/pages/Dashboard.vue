@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { Head, Link } from '@inertiajs/vue3';
+import { show } from '@/actions/App/Http/Controllers/Budgets/BudgetController';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { dashboard } from '@/routes';
 import type { BreadcrumbItem } from '@/types';
 import type { Budget } from '@/types/Budget';
-import { show } from '@/actions/App/Http/Controllers/Budgets/BudgetController';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
