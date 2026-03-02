@@ -115,13 +115,18 @@ const remaining = computed(() => {
                 method="post"
                 class="mt-4 flex flex-col gap-4"
                 reset-on-success
+                #default="{ errors }"
             >
+                <p v-if="errors.name" class="text-red-500">{{ errors.name }}</p>
                 <input
                     type="text"
                     name="name"
                     placeholder="Item Name"
                     class="rounded border border-gray-300 bg-white p-2"
                 />
+                <p v-if="errors.amount" class="text-red-500">
+                    {{ errors.amount }}
+                </p>
                 <input
                     type="number"
                     step="0.01"

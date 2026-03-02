@@ -47,8 +47,10 @@ defineProps<{
             <Form
                 :action="store()"
                 method="post"
-                class="mt-4 flex items-center gap-2"
+                class="mt-4 flex flex-col gap-2"
+                #default="{ errors }"
             >
+                <p v-if="errors.name" class="text-red-500">{{ errors.name }}</p>
                 <input
                     type="text"
                     name="name"
