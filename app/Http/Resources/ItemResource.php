@@ -18,7 +18,7 @@ class ItemResource extends JsonResource
             'id' => $this->getKey(),
             'name' => $this->name,
             'amount' => $this->amount,
-            'completed' => $this->completed,
+            'paid_at' => $this->paid_at ? $this->paid_at->format('Y-m-d H:i') : null,
         ];
     }
 }

@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('items', function (Blueprint $table) {
-            $table->boolean('completed')->after('amount')->default(false);
+            $table->dateTime('paid_at')->after('amount')->nullable();
         });
     }
 
@@ -22,7 +22,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('items', function (Blueprint $table) {
-            $table->dropColumn('completed');
+            $table->dropColumn('paid_at');
         });
     }
 };

@@ -4,7 +4,7 @@ import { computed } from 'vue';
 import {
     addItem,
     removeItem,
-    toggleItemCompletion,
+    toggleItemPaid,
 } from '@/actions/App/Http/Controllers/BudgetItems/BudgetItemController';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { getTotal } from '@/lib/utils';
@@ -38,7 +38,7 @@ const total = computed(() => {
 
 const remaining = computed(() => {
     return Number(
-        getTotal(budget.items.filter((item) => !item.completed)),
+        getTotal(budget.items.filter((item) => !item.paid_at)),
     ).toFixed(2);
 });
 </script>
@@ -56,7 +56,7 @@ const remaining = computed(() => {
                     <tr>
                         <th class="px-4 py-2 text-center">Name</th>
                         <th class="px-4 py-2 text-center">Amount</th>
-                        <th class="px-4 py-2 text-center">Completed</th>
+                        <th class="px-4 py-2 text-center">Paid At</th>
                         <th class="px-4 py-2 text-center">Actions</th>
                     </tr>
                 </thead>
@@ -67,13 +67,13 @@ const remaining = computed(() => {
                             {{ Number(item.amount).toFixed(2) }}
                         </td>
                         <td class="px-4 py-2 text-center">
-                            {{ item.completed ? '✅' : '❌' }}
+                            {{ item.paid_at ? item.paid_at : '-' }}
                         </td>
                         <td class="flex gap-2 px-4 py-2 text-center">
                             <Form
                                 method="patch"
                                 :action="
-                                    toggleItemCompletion({
+                                    toggleItemPaid({
                                         budget,
                                         item,
                                     })
@@ -84,9 +84,9 @@ const remaining = computed(() => {
                                     class="cursor-pointer rounded bg-orange-700 p-1 text-xs text-white"
                                 >
                                     {{
-                                        item.completed
-                                            ? 'Mark Incomplete'
-                                            : 'Mark Complete'
+                                        item.paid_at
+                                            ? 'Mark Unpaid'
+                                            : 'Mark Paid'
                                     }}
                                 </button>
                             </Form>

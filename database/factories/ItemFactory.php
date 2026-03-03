@@ -15,7 +15,7 @@ class ItemFactory extends Factory
         return [
             'name' => fake()->word(),
             'amount' => fake()->randomFloat(2, 1, 1000),
-            'completed' => fake()->boolean(),
+            'paid_at' => fake()->boolean() ? fake()->dateTimeBetween('-1 year', 'now') : null,
             'budget_id' => Budget::factory(),
         ];
     }

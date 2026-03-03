@@ -17,7 +17,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('budgets/{budget}', [BudgetController::class, 'remove'])->name('budgets.remove');
     Route::post('budgets/{budget}/items', [BudgetItemController::class, 'addItem'])->name('budgets.items.add');
     Route::delete('budgets/{budget}/items/{item}', [BudgetItemController::class, 'removeItem'])->name('budgets.items.remove');
-    Route::patch('budgets/{budget}/items/{item}/toggle-completion', [BudgetItemController::class, 'toggleItemCompletion'])->name('budgets.items.toggle-completion');
+    Route::patch('budgets/{budget}/items/{item}/toggle-paid', [BudgetItemController::class, 'toggleItemPaid'])->name('budgets.items.toggle-paid');
 });
 
 require __DIR__ . '/settings.php';

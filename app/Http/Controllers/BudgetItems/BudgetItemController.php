@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\BudgetItems;
 
 use App\Actions\AddBudgetItem;
-use App\Actions\ToggleBudgetItemCompletion;
+use App\Actions\ToggleItemPaid;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Budgets\AddItemRequest;
 use App\Models\Budget;
@@ -34,13 +34,13 @@ class BudgetItemController extends Controller
         return redirect()->route('budgets.show', $budget);
     }
 
-    public function toggleItemCompletion(Budget $budget, Item $item, ToggleBudgetItemCompletion $toggleBudgetItemCompletion)
+    public function toggleItemPaid(Budget $budget, Item $item, ToggleItemPaid $toggleItemPaid)
     {
         if (Auth::id() != $budget->user_id) {
             abort(403);
         }
 
-        $toggleBudgetItemCompletion($item);
+        $toggleItemPaid($item);
 
         return redirect()->route('budgets.show', $budget);
     }

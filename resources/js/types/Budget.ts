@@ -8,5 +8,5 @@ export type BudgetItem = {
     id: number;
     name: string;
     amount: number;
-    completed: boolean;
+    paid_at: Date | null;
 };
