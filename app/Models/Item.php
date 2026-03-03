@@ -10,6 +10,10 @@ class Item extends Model
 {
     use HasFactory;
 
+    protected $casts = [
+        'paid_at' => 'datetime',
+    ];
+
     public function budget(): BelongsTo
     {
         return $this->belongsTo(Budget::class);

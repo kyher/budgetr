@@ -5,6 +5,7 @@ namespace Tests\Feature\Budgets;
 use App\Models\Budget;
 use App\Models\Item;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -104,17 +105,18 @@ class BudgetsTest extends TestCase
 
     public function test_budget_owner_can_toggle_item_completion()
     {
+        Carbon::setTestNow();
         $user = User::factory()->create();
         $budget = Budget::factory()->create(['user_id' => $user->id]);
-        $item = Item::factory()->create(['budget_id' => $budget->id, 'completed' => false]);
+        $item = Item::factory()->create(['budget_id' => $budget->id, 'paid_at' => null]);
 
         $this->actingAs($user);
-        $response = $this->patch(route('budgets.items.toggle-completion', ['budget' => $budget->getKey(), 'item' => $item->getKey()]));
+        $response = $this->patch(route('budgets.items.toggle-paid', ['budget' => $budget->getKey(), 'item' => $item->getKey()]));
 
         $response->assertRedirect(route('budgets.show', ['budget' => $budget->getKey()]));
         $this->assertDatabaseHas('items', [
             'id' => $item->id,
-            'completed' => true,
+            'paid_at' => now(),
         ]);
     }
 
@@ -122,15 +124,15 @@ class BudgetsTest extends TestCase
     {
         $user = User::factory()->create();
         $budget = Budget::factory()->create();
-        $item = Item::factory()->create(['budget_id' => $budget->id, 'completed' => false]);
+        $item = Item::factory()->create(['budget_id' => $budget->id, 'paid_at' => null]);
 
         $this->actingAs($user);
-        $response = $this->patch(route('budgets.items.toggle-completion', ['budget' => $budget->getKey(), 'item' => $item->getKey()]));
+        $response = $this->patch(route('budgets.items.toggle-paid', ['budget' => $budget->getKey(), 'item' => $item->getKey()]));
 
         $response->assertForbidden();
         $this->assertDatabaseHas('items', [
             'id' => $item->id,
-            'completed' => false,
+            'paid_at' => null,
         ]);
     }
 
