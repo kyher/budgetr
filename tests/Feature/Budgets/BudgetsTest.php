@@ -46,14 +46,15 @@ class BudgetsTest extends TestCase
         $budget = Budget::factory()->create(['user_id' => $user->id]);
 
         $this->actingAs($user);
+        $itemName = fake()->lexify('?????');
         $response = $this->post(route('budgets.items.add', ['budget' => $budget->getKey()]), [
-            'name' => 'New Item',
+            'name' => $itemName,
             'amount' => 100,
         ]);
 
         $response->assertRedirect(route('budgets.show', ['budget' => $budget->getKey()]));
         $this->assertDatabaseHas('items', [
-            'name' => 'New Item',
+            'name' => $itemName,
             'amount' => 100,
             'budget_id' => $budget->getKey(),
         ]);
@@ -141,7 +142,7 @@ class BudgetsTest extends TestCase
         $user = User::factory()->create();
 
         $this->actingAs($user);
-        $budgetName = fake()->word();
+        $budgetName = fake()->lexify('?????');
         $this->post(route('budgets.store'), [
             'name' => $budgetName,
         ]);
