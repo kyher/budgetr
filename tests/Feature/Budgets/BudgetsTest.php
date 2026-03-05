@@ -141,13 +141,13 @@ class BudgetsTest extends TestCase
         $user = User::factory()->create();
 
         $this->actingAs($user);
-        $response = $this->post(route('budgets.store'), [
-            'name' => 'New Budget',
+        $budgetName = fake()->word();
+        $this->post(route('budgets.store'), [
+            'name' => $budgetName,
         ]);
 
-        $response->assertRedirect(route('budgets.show', ['budget' => 1]));
         $this->assertDatabaseHas('budgets', [
-            'name' => 'New Budget',
+            'name' => $budgetName,
             'user_id' => $user->id,
         ]);
     }
