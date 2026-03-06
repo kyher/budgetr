@@ -7,7 +7,6 @@ import {
     toggleItemPaid,
 } from '@/actions/App/Http/Controllers/BudgetItems/BudgetItemController';
 import AppLayout from '@/layouts/AppLayout.vue';
-import { getTotal } from '@/lib/utils';
 import { dashboard } from '@/routes';
 import { show } from '@/routes/budgets';
 import type { BreadcrumbItem } from '@/types';
@@ -30,16 +29,6 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 const headTitle = computed(() => {
     return `Budget: ${budget.name}`;
-});
-
-const total = computed(() => {
-    return Number(getTotal(budget.items)).toFixed(2);
-});
-
-const remaining = computed(() => {
-    return Number(
-        getTotal(budget.items.filter((item) => !item.paid_at)),
-    ).toFixed(2);
 });
 </script>
 
@@ -153,9 +142,11 @@ const remaining = computed(() => {
                     </thead>
                     <tbody>
                         <tr>
-                            <td class="px-4 py-2 text-center">{{ total }}</td>
                             <td class="px-4 py-2 text-center">
-                                {{ remaining }}
+                                {{ budget.total }}
+                            </td>
+                            <td class="px-4 py-2 text-center">
+                                {{ budget.remaining }}
                             </td>
                         </tr>
                     </tbody>

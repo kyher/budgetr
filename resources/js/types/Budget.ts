@@ -2,6 +2,8 @@ export type Budget = {
     id: number;
     name: string;
     items: BudgetItem[];
+    total: number;
+    remaining: number;
 };
 
 export type BudgetItem = {
