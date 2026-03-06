@@ -18,6 +18,8 @@ class BudgetResource extends JsonResource
             'id' => $this->getKey(),
             'name' => $this->name,
             'items' => ItemResource::collection($this->items),
+            'total' => $this->total,
+            'remaining' => $this->remaining,
         ];
     }
 }

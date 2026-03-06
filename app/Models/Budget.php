@@ -20,4 +20,14 @@ class Budget extends Model
     {
         return $this->hasMany(Item::class);
     }
+
+    protected function getTotalAttribute(): float
+    {
+        return $this->items()->sum('amount');
+    }
+
+    protected function getRemainingAttribute(): float
+    {
+        return $this->items()->where('paid_at', null)->sum('amount');
+    }
 }
