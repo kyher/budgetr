@@ -12,9 +12,11 @@ class ItemFactory extends Factory
 
     public function definition()
     {
+        $amount = fake()->randomFloat(2, 1, 1000);
         return [
             'name' => fake()->word(),
-            'amount' => fake()->randomFloat(2, 1, 1000),
+            'amount' => $amount,
+            'remaining' => $amount,
             'paid_at' => fake()->boolean() ? fake()->dateTimeBetween('-1 year', 'now') : null,
             'budget_id' => Budget::factory(),
         ];
