@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { Form } from '@inertiajs/vue3';
-import type { Budget } from '@/types/Budget';
 import { addItem } from '@/actions/App/Http/Controllers/BudgetItems/BudgetItemController';
+import type { Budget } from '@/types/Budget';
 
-const props = defineProps<{
+defineProps<{
     budget: Budget;
 }>();
 </script>

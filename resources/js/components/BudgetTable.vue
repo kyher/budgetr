@@ -1,11 +1,10 @@
 <script setup lang="ts">
 import type { Budget } from '@/types/Budget';
-import TogglePaidForm from './TogglePaidForm.vue';
-import UpdateRemainingItemTotal from './UpdateRemainingItemTotal.vue';
 import RemoveItemForm from './RemoveItemForm.vue';
+import TogglePaidForm from './TogglePaidForm.vue';
 import UpdateItemForm from './UpdateItemForm.vue';
 
-const props = defineProps<{
+defineProps<{
     budget: Budget;
 }>();
 </script>

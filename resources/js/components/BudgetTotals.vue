@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Budget } from '@/types/Budget';
 
-const props = defineProps<{
+defineProps<{
     budget: Budget;
 }>();
 </script>

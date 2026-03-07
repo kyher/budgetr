@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { Form, Head } from '@inertiajs/vue3';
+import { Head } from '@inertiajs/vue3';
 import { computed } from 'vue';
+import AddItemForm from '@/components/AddItemForm.vue';
+import BudgetTable from '@/components/BudgetTable.vue';
+import BudgetTotals from '@/components/BudgetTotals.vue';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { dashboard } from '@/routes';
 import { show } from '@/routes/budgets';
 import type { BreadcrumbItem } from '@/types';
 import type { Budget } from '@/types/Budget';
-import BudgetTable from '@/components/BudgetTable.vue';
-import AddItemForm from '@/components/AddItemForm.vue';
-import BudgetTotals from '@/components/BudgetTotals.vue';
 
 const { budget } = defineProps<{
     budget: Budget;

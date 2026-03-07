@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { Form } from '@inertiajs/vue3';
-import type { Budget, BudgetItem } from '@/types/Budget';
 import { toggleItemPaid } from '@/actions/App/Http/Controllers/BudgetItems/BudgetItemController';
+import type { Budget, BudgetItem } from '@/types/Budget';
 
-const props = defineProps<{
+defineProps<{
     budget: Budget;
     item: BudgetItem;
 }>();
