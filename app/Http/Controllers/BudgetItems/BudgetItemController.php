@@ -4,8 +4,10 @@ namespace App\Http\Controllers\BudgetItems;
 
 use App\Actions\AddBudgetItem;
 use App\Actions\ToggleItemPaid;
+use App\Actions\UpdateItem;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Budgets\AddItemRequest;
+use App\Http\Requests\Budgets\UpdateItemRequest;
 use App\Models\Budget;
 use App\Models\Item;
 use Illuminate\Support\Facades\Auth;
@@ -41,6 +43,17 @@ class BudgetItemController extends Controller
         }
 
         $toggleItemPaid($item);
+
+        return redirect()->route('budgets.show', $budget);
+    }
+
+    public function updateItem(UpdateItemRequest $request, Budget $budget, Item $item, UpdateItem $updateItem)
+    {
+        if (Auth::id() != $budget->user_id) {
+            abort(403);
+        }
+
+        $updateItem($item, $request->validated());
 
         return redirect()->route('budgets.show', $budget);
     }

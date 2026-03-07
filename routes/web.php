@@ -18,6 +18,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('budgets/{budget}/items', [BudgetItemController::class, 'addItem'])->name('budgets.items.add');
     Route::delete('budgets/{budget}/items/{item}', [BudgetItemController::class, 'removeItem'])->name('budgets.items.remove');
     Route::patch('budgets/{budget}/items/{item}/toggle-paid', [BudgetItemController::class, 'toggleItemPaid'])->name('budgets.items.toggle-paid');
+    Route::patch('budgets/{budget}/items/{item}/update', [BudgetItemController::class, 'updateItem'])->name('budgets.items.update');
 });
 
 require __DIR__ . '/settings.php';

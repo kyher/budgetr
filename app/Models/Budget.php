@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Number;
 
 class Budget extends Model
 {
@@ -21,13 +22,13 @@ class Budget extends Model
         return $this->hasMany(Item::class);
     }
 
-    protected function getTotalAttribute(): float
+    protected function getTotalAttribute(): string
     {
-        return $this->items()->sum('amount');
+        return Number::currency($this->items()->sum('amount'), 'GBP');
     }
 
-    protected function getRemainingAttribute(): float
+    protected function getRemainingAttribute(): string
     {
-        return $this->items()->where('paid_at', null)->sum('amount');
+        return Number::currency($this->items()->where('paid_at', null)->sum('remaining'), 'GBP');
     }
 }
