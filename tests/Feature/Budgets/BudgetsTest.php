@@ -177,4 +177,48 @@ class BudgetsTest extends TestCase
 
         $response->assertForbidden();
     }
+
+    public function test_a_user_can_edit_a_budget_item()
+    {
+        $user = User::factory()->create();
+        $budget = Budget::factory()->create(['user_id' => $user->id]);
+        $item = Item::factory()->create(['budget_id' => $budget->id]);
+
+        $this->actingAs($user);
+        $response = $this->patch(route('budgets.items.update', ['budget' => $budget->getKey(), 'item' => $item->getKey()]), [
+            'name' => 'Updated Item',
+            'amount' => 150,
+            'remaining' => 100,
+        ]);
+
+        $response->assertRedirect(route('budgets.show', ['budget' => $budget->getKey()]));
+        $this->assertDatabaseHas('items', [
+            'id' => $item->id,
+            'name' => 'Updated Item',
+            'amount' => 150,
+            'remaining' => 100,
+        ]);
+    }
+
+    public function test_a_different_user_cannot_edit_a_budget_item()
+    {
+        $user = User::factory()->create();
+        $budget = Budget::factory()->create();
+        $item = Item::factory()->create(['budget_id' => $budget->id]);
+
+        $this->actingAs($user);
+        $response = $this->patch(route('budgets.items.update', ['budget' => $budget->getKey(), 'item' => $item->getKey()]), [
+            'name' => 'Updated Item',
+            'amount' => 150,
+            'remaining' => 100,
+        ]);
+
+        $response->assertForbidden();
+        $this->assertDatabaseMissing('items', [
+            'id' => $item->id,
+            'name' => 'Updated Item',
+            'amount' => 150,
+            'remaining' => 100,
+        ]);
+    }
 }

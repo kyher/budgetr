@@ -14,6 +14,7 @@ class AddBudgetItem
             $item = new Item();
             $item->name = $data['name'];
             $item->amount = $data['amount'];
+            $item->remaining = $data['amount'];
             $budget->items()->save($item);
         });
     }
