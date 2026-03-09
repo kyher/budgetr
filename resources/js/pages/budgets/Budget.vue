@@ -39,8 +39,8 @@ const headTitle = computed(() => {
                 {{ budget.name }}
             </h1>
             <BudgetTable :budget="budget" />
-            <AddItemForm :budget="budget" />
             <BudgetTotals :budget="budget" />
+            <AddItemForm :budget="budget" />
         </div>
     </AppLayout>
 </template>

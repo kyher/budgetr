@@ -12,7 +12,7 @@ defineProps<{
     <Form
         :action="addItem(budget)"
         method="post"
-        class="mt-4 flex flex-col gap-4"
+        class="mt-4 flex max-w-sm flex-col gap-4"
         reset-on-success
         #default="{ errors }"
     >
