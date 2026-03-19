@@ -17,7 +17,7 @@ defineProps<{
                 <div class="flex flex-col items-center gap-4">
                     <Link
                         :href="home()"
-                        class="inline-block rounded-sm bg-blue-500 px-5 py-1.5 text-sm leading-normal text-white hover:bg-blue-600"
+                        class="inline-block rounded-sm bg-blue-700 px-5 py-1.5 text-sm leading-normal text-white hover:bg-blue-600"
                     >
                         Back
                     </Link>

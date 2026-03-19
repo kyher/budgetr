@@ -35,21 +35,21 @@ withDefaults(
                     <Link
                         v-if="$page.props.auth.user"
                         :href="dashboard()"
-                        class="inline-block rounded-sm bg-blue-500 px-5 py-1.5 text-sm leading-normal text-white hover:bg-blue-600"
+                        class="inline-block rounded-sm bg-blue-700 px-5 py-1.5 text-sm leading-normal text-white hover:bg-blue-600"
                     >
                         Dashboard
                     </Link>
                     <template v-else>
                         <Link
                             :href="login()"
-                            class="inline-block rounded-sm bg-blue-500 px-5 py-1.5 text-sm leading-normal text-white hover:bg-blue-600"
+                            class="inline-block rounded-sm bg-blue-700 px-5 py-1.5 text-sm leading-normal text-white hover:bg-blue-600"
                         >
                             Log in
                         </Link>
                         <Link
                             v-if="canRegister"
                             :href="register()"
-                            class="inline-block rounded-sm bg-blue-500 px-5 py-1.5 text-sm leading-normal text-white hover:bg-blue-600"
+                            class="inline-block rounded-sm bg-blue-700 px-5 py-1.5 text-sm leading-normal text-white hover:bg-blue-600"
                         >
                             Register
                         </Link>

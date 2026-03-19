@@ -20,7 +20,7 @@ const open = ref(false);
 <template>
     <Dialog v-model:open="open">
         <DialogTrigger
-            class="cursor-pointer rounded bg-green-500 p-1 text-xs text-white"
+            class="cursor-pointer rounded bg-green-700 p-1 text-xs text-white"
         >
             Update Item
         </DialogTrigger>
@@ -74,7 +74,7 @@ const open = ref(false);
                         />
                         <button
                             type="submit"
-                            class="cursor-pointer rounded bg-blue-500 p-1 text-xs text-white"
+                            class="cursor-pointer rounded bg-blue-700 p-1 text-xs text-white"
                         >
                             Update
                         </button>
