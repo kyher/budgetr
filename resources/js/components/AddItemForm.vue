@@ -17,25 +17,27 @@ defineProps<{
         #default="{ errors }"
     >
         <p v-if="errors.name" class="text-red-500">{{ errors.name }}</p>
+        <label for="name">Item Name</label>
         <input
             type="text"
+            id="name"
             name="name"
-            placeholder="Item Name"
             class="rounded border border-gray-300 bg-white p-2"
         />
         <p v-if="errors.amount" class="text-red-500">
             {{ errors.amount }}
         </p>
+        <label for="amount">Item Amount</label>
         <input
             type="number"
             step="0.01"
+            id="amount"
             name="amount"
-            placeholder="Item Amount"
             class="rounded border border-gray-300 bg-white p-2"
         />
         <button
             type="submit"
-            class="cursor-pointer rounded bg-blue-500 p-2 text-white"
+            class="cursor-pointer rounded bg-blue-700 p-2 text-white"
         >
             Add Item
         </button>

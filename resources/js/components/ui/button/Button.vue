@@ -22,7 +22,7 @@ const props = withDefaults(defineProps<Props>(), {
     data-slot="button"
     :as="as"
     :as-child="asChild"
-    class="rounded-sm bg-blue-500 px-5 py-1.5 text-sm leading-normal text-white hover:bg-blue-600'"
+    class="rounded-sm bg-blue-700 px-5 py-1.5 text-sm leading-normal text-white hover:bg-blue-600'"
     :class="cn(buttonVariants({ variant, size }), props.class)"
   >
     <slot />

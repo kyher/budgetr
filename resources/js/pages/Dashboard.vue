@@ -37,7 +37,7 @@ defineProps<{
                     <Form method="delete" :action="remove(budget)">
                         <button
                             type="submit"
-                            class="cursor-pointer rounded bg-red-500 p-1 text-xs text-white"
+                            class="cursor-pointer rounded bg-red-700 p-1 text-xs text-white hover:bg-red-600"
                         >
                             Remove Budget
                         </button>
@@ -51,15 +51,20 @@ defineProps<{
                 #default="{ errors }"
             >
                 <p v-if="errors.name" class="text-red-500">{{ errors.name }}</p>
-                <input
-                    type="text"
-                    name="name"
-                    placeholder="Budget Name"
-                    class="flex-1 rounded-md border border-gray-300 bg-white p-2"
-                />
+                <div class="flex items-center gap-3">
+                    <label for="name">Budget Name</label>
+                    <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        placeholder="Enter a name..."
+                        class="flex-1 rounded-md border border-gray-300 bg-white p-2"
+                    />
+                </div>
+
                 <button
                     type="submit"
-                    class="rounded-md bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
+                    class="cursor-pointer rounded-md bg-blue-700 px-4 py-2 text-white hover:bg-blue-600"
                 >
                     Create Budget
                 </button>
